@@ -14,3 +14,14 @@ after_sucess:
   - docker build -t yasar/multi-nginx ./nginx
   - docker build -t yasar/multi-server ./server
   - docker build -t yasar/multi-worker ./worker
+
+# Log in to the docker CLI
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# Push to docker hub
+
+  - docker push yasar/multi-client
+  - docker push yasar/multi-nginx
+  - docker push yasar/multi-server
+  - docker push yasar/multi-worker
