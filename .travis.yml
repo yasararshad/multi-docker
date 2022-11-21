@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t yasar/react-test -f .client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true yasar/react-test npm test
+
+after_sucess:
+  - docker build -t yasar/multi-client ./client
+  - docker build -t yasar/multi-nginx ./nginx
+  - docker build -t yasar/multi-server ./server
+  - docker build -t yasar/multi-worker ./worker
